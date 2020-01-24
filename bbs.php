@@ -64,5 +64,25 @@ if (count($errors) === 0) {
         comment: <input type="text" name="comment" id=""><br />
         <input type="submit" name="submit" value="submit">
     </form>
+
+    <?php
+    $sql = "SELECT * FROM `post` ORDER BY `created_at` DESC";
+    $result = mysqli_query($link, $sql);
+    ?>
+    <?php if ($result !== false && mysqli_num_rows($result)): ?>
+        <ul>
+            <?php while ($post = mysqli_fetch_assoc($result)): ?>
+                <li>
+                    <?php echo htmlspecialchars($post['name'], ENT_QUOTES, 'UTF-8');?>:
+                    <?php echo htmlspecialchars($post['comment'], ENT_QUOTES, 'UTF-8');?>
+                    - <?php echo htmlspecialchars($post['created_at'], ENT_QUOTES, 'UTF-8');?>
+                </li>
+            <?php endwhile; ?>
+        </ul>
+    <?php endif; ?>
+    <?php
+    mysqli_free_result($result);
+    mysqli_close($link);
+    ?>
 </body>
 </html>
