@@ -37,6 +37,8 @@ if (count($errors) === 0) {
 
     // printf($sql);
     mysqli_query($link, $sql);
+    mysqli_close($link);
+    header('Location: http://'.$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI']);
 }
 ?>
 
@@ -80,6 +82,7 @@ if (count($errors) === 0) {
             <?php endwhile; ?>
         </ul>
     <?php endif; ?>
+
     <?php
     mysqli_free_result($result);
     mysqli_close($link);
